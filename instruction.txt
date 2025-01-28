@@ -1,0 +1,44 @@
+# Install these using homebrew
+git   # the git program
+gh    # the github command line app
+redis # database software for tagmachine
+
+# Install Go
+https://go.dev/doc/install
+
+# Download and run tagmachine
+cd                                                        
+git clone https://github.com/hartsfield/tagmachine.xyz
+cd tagmachine.xyz
+./autoload.sh tagmachine.xyz 9002 SECRET_PHRASE_HERE
+
+# Start Redis
+idk how on a mac actually, it usually just starts itself
+
+
+
+# The rest of this is actually optional
+
+
+
+
+# Change default shell to fish and add $PATH to binary directories
+chsh -s /usr/bin/fish
+set PATH $PATH:/usr/local/go/bin:~/bin
+
+# Install tmux status line:
+cd && git clone https://github.com/gpakosz/.tmux.git
+ln -s -f .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local .
+echo 'set-option -g mouse on' >> .tmux.conf.local
+echo 'set-option -g status-position top' >> .tmux.conf.local
+
+# Copy configs for vim, neovim, ranger, git:
+cp -r .vimrc .config/ .gitignore ~
+git config --global core.excludesFile '~/.gitignore'
+
+# Install vim-plug (this command is for neovim, not vim):
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# Install (n)vim plugins, Go Binaries, and language server packs for autocompletion:
+nvim -c :PlugInstall -c :GoInstallBinaries -c ":CocInstall coc-sh coc-css coc-flutter coc-go coc-html coc-tsserver coc-json"
